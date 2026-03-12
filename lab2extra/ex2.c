@@ -1,25 +1,42 @@
 #include <stdio.h>
 
-void num2string(char* s, int n, int base) {
-  int a = 0;
-  int d;
+void num2string(char *s, int num, int base) {
+  int i = 0;
+  int r;
 
-  for (; *s; s++) {
+  while (num > 0) {
+    r = num % base;
 
-    if (isdigit(*s))
-      d = *s - '0';
-    else if (isdigit(*s))
-      d = tolower(*s) - 'a' + 10;
+    if (r < 10)
+      s[i++] = '0' + r;
+    else
+      s[i++] = 'a' + (r - 10);
 
-    a = a * n + d;
+    num /= base;
   }
 
-  return a;
+  s[i] = '\0';
+
+  int j;
+  char tmp;
+  for (j = 0; j < i/2; j++) {
+    tmp = s[j];
+    s[j] = s[i-1-j];
+    s[i-1-j] = tmp;
+  }
 }
 
-
 int main() {
-    printf("%d", is_little());
+  char buffer[50];
 
-    return 0;
+  num2string(buffer, 1234, 10);
+  printf("%s\n", buffer);
+
+  num2string(buffer, 1234, 16);
+  printf("%s\n", buffer);
+
+  num2string(buffer, 1234, 2);
+  printf("%s\n", buffer);
+
+  return 0;
 }
