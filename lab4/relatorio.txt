@@ -1,0 +1,6 @@
+1) char c = 150: 150 / 16 = 9 resto 6 -> 9 / 16 = 0 resto 0. Ou seja, o terminal mostrará sua posição na memoria e 96.
+   short s = -3: -3 <=> 1101 <=> D. Ou seja, o terminal mostrará sua posição na memoria e FD e em seguida FF, já que short tem 2 bytes.
+   int i = -151: 151 = 0x97 -> invertido: 0xFFFFFF68 -> +1: 0xFFFFFFF69. Portanto, o terminal mostrará 69, FF, FF e FF se for little-endian
+2) short l = -32765: 32765 / 16 = 2047, resto 13, 2047 / 16 = 127, resto 15, 127 / 16 = 7, resto 15, 7 / 16 = 0, resto 7, 32765 = 0x7FFD,
+        inverte: 0x8002, +1: 0x8003. Portanto, o terminal mostrará 03 e em seguida 80.
+    unsigned short k = 32771:
