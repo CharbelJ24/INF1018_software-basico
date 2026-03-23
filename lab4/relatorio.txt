@@ -3,4 +3,4 @@
    int i = -151: 151 = 0x97 -> invertido: 0xFFFFFF68 -> +1: 0xFFFFFFF69. Portanto, o terminal mostrará 69, FF, FF e FF se for little-endian
 2) short l = -32765: 32765 / 16 = 2047, resto 13, 2047 / 16 = 127, resto 15, 127 / 16 = 7, resto 15, 7 / 16 = 0, resto 7, 32765 = 0x7FFD,
         inverte: 0x8002, +1: 0x8003. Portanto, o terminal mostrará 03 e em seguida 80.
-    unsigned short k = 32771:
+    unsigned short k = 32771: 32771 / 16 = 2048, resto 3, 2048 / 16 = 128, resto 0, 128 / 16 = 8, resto 0, 8 / 16 = 0, resto 8, 32771 = 0x8003, portanto o terminal printará 03 e em seguida 80
