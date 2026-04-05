@@ -1,0 +1,13 @@
+1) int b[2] terá 8 bytes, já que cada inteiro tem 4 bytes e b tem 2 elementos, portanto 4 * 2 = 8;
+   short a[2][3] terá 12 bytes, já que cada short tem 2 bytes e a tem 2 * 3 elementos, portanto 2 * 6 = 12;
+
+2) A struct tem um tamanho de 12 bytes mesmo tendo um int (4 bytes) + 1 short (2 bytes) + 1 int (4 bytes). Isso ocorre porque o programa le valores de 4 (tamanho do maior valor da struct) em 4 bytes oque não funcionaria tendo 2 bytes ali no meio, então o próprio compilador adiciona 2 paddings, que são 2 bytes de lixo, assim o short "ocupa" 4 bytes e deixando a struct com 12 bytes de tamanho.
+
+3.a) x1 terá 12 bytes, char (ocupa 4 bytes) + int (ocupa 4 bytes) + char (ocupa 4 bytes);
+  b) x2 terá 16 bytes, long (ocupa 8 bytes) + char (ocupa 8 bytes, 1 + 7 de padding);
+  c) x3 terá 8 bytes, int (ocupa 4 bytes) + 2 char (ocupa 1 * 2 bytes) + 2 de padding;
+  d) x4 terá 24 bytes, struct x2 (ocupa 16 bytes) + char (vai ocupar mais 16 bytes para ser multiplo de 16);
+  e) x5 terá 3 bytes, char (ocupa 1 byte) + char (ocupa 1 byte) + char (ocupa 1 byte);
+  f) x6 terá 16 bytes, short (ocupa 2 bytes + 2 padding) + int (ocupa 4 bytes) + char[3] (ocupa 3 bytes + 1 padding) + short (ocupa 2 bytes + 2 padding);
+  g) u1 terá 8 bytes, int (ocupa 4 bytes + 4 padding) ou char[5] (ocupa 5 bytes + 3 padding) se char;
+  h) u2 terá 6 bytes, short (ocupa 2 bytes + 4 padding) ou char[5] (ocupa 5 bytes + 1 padding);
