@@ -1,0 +1,7 @@
+1) Não entendi somente a linha: movsbl  (%r12), %eax, ela só é usada dentro do trcho obrigatório então, acredito que não tenho o conhecimento ainda pra entender essa linha.
+
+2) Não entendi muito bem o que a questão quis dizer que não foi necessário testar a segunda condição.
+
+3) Não sabia como fazer uma conta com um endereço sem altera-lo, mas vi que eu podia so guardar o valor em outro endereço e ai fazer a operação com ele. No mais não tive nenhum outro problema.
+
+4) Não consegui fazer a questão sem utilizar ecx, precisava de muitos endereços para fazer a operação citada no exercicio.
