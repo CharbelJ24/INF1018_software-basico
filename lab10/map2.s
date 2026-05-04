@@ -31,60 +31,58 @@ paux = rbx
 .text
 .globl map2
 map2:
-    pushq %rbp  # salva a base do ra
-    movq %rsp, %rbp # cria a base do RA da chamada
-    subq $32, %rsp # abre espaço para o RA da chamada
-    
-    # salvar registradores callee-saved USADOS!!!
+    pushq %rbp
+    movq %rsp, %rbp
+    subq $32, %rsp
+
+    # salvar callee-saved
     movq %rbx, -8(%rbp)
 
-    #i=0
+    # i = 0
     movl $0, %ecx
 
 loop:
     cmpl %edx, %ecx
     jge fim
 
-    #paux = um + i * 4
-    movl %ecx, %eax
-    imull $4, %eax
-    
-    #paux += i
-    addq %rax, %rbx
-    
-    #param1 = *paux
+    # paux = um + i * 4
+    movq %rdi, %rbx
+    movslq %ecx, %rax
+    imulq $4, %rax           # rax = i * 4
+    addq %rax, %rbx          # rbx = um + i*4  →  paux aponta p/ um[i]
+
+    # salvar registradores caller-saved antes de chamar f
     movq %rdi, -16(%rbp)
     movq %rsi, -24(%rbp)
     movl %edx, -28(%rbp)
     movl %ecx, -32(%rbp)
 
-    #temp = f(param1)
-    movl (%rbx), %edi # 1° parametro
+    # param1 = *paux  →  chama f(*(um+i))
+    movl (%rbx), %edi
     call f
+    # eax = f(*(um+i))
 
-    #restaura registradores do callee-saved
+    # restaurar registradores
     movq -16(%rbp), %rdi
     movq -24(%rbp), %rsi
     movl -28(%rbp), %edx
     movl -32(%rbp), %ecx
 
-    #paux = outro + i
-    #paux = outro
-    movq %rsi, %rbx
+    # paux = outro + i * 4
+    movq %rsi, %rbx          # rbx = outro
+    movslq %ecx, %rcx
+    imulq $4, %rcx           # rcx = i * 4
+    addq %rcx, %rbx          # rbx = outro + i*4  →  paux aponta p/ outro[i]
+    movslq -32(%rbp), %rcx   # restaura ecx corretamente após imulq
 
-    #paux += i
-    addq %rcx, %rbx
-
-    #*paux = temp
+    # *paux = temp (eax)
     movl %eax, (%rbx)
 
-    #i++
+    # i++
     incl %ecx
-
     jmp loop
 
 fim:
     movq -8(%rbp), %rbx
-
     leave
     ret
