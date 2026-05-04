@@ -39,7 +39,7 @@ map2:
     movq %rbx, -8(%rbp)
 
     #i=0
-    movq $0, %ecx
+    movl $0, %ecx
 
 loop:
     cmpl %edx, %ecx
@@ -48,9 +48,6 @@ loop:
     #paux = um + i * 4
     movl %ecx, %eax
     imull $4, %eax
-
-    #paux = um
-    movq %rdi, %rbx
     
     #paux += i
     addq %rax, %rbx
@@ -76,9 +73,9 @@ loop:
     movq %rsi, %rbx
 
     #paux += i
-    addq %ecx, %rbx
+    addq %rcx, %rbx
 
-    *paux = temp
+    #*paux = temp
     movl %eax, (%rbx)
 
     #i++
@@ -89,6 +86,5 @@ loop:
 fim:
     movq -8(%rbp), %rbx
 
-    ret
     leave
-
+    ret
