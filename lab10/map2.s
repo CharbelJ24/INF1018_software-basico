@@ -31,15 +31,12 @@ paux = rbx
 .text
 .globl map2
 map2:
-    pushq %rsp  # salva a base do ra
-    movq %rbp, %rsp # cria a base do RA da chamada
-    subq $32, %rbp # abre espaço para o RA da chamada
-
-
+    pushq %rbp  # salva a base do ra
+    movq %rsp, %rbp # cria a base do RA da chamada
+    subq $32, %rsp # abre espaço para o RA da chamada
     
     # salvar registradores callee-saved USADOS!!!
     movq %rbx, -8(%rbp)
-    movq %
 
     #i=0
     movq $0, %ecx
@@ -48,12 +45,15 @@ loop:
     cmpl %edx, %ecx
     jge fim
 
-    #paux = um + i
+    #paux = um + i * 4
+    movl %ecx, %eax
+    imull $4, %eax
+
     #paux = um
     movq %rdi, %rbx
     
     #paux += i
-    addq %rcx, %rbx
+    addq %rax, %rbx
     
     #param1 = *paux
     movq %rdi, -16(%rbp)
