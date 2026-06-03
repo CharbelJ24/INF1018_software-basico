@@ -17,20 +17,29 @@ float int2float(int i){
 
     unsigned int s = 0, e = 0, f = 0;
 
-    unsigned int varAux = i
+    unsigned int varAux = i;
     if(i < 0){
         s = 1;
         varAux *= -1;
     }
 
-    int j = 0
-    while(varAux >>= 1){
+    int j = 0;
+    unsigned int temp = varAux;
+    while(temp >>= 1){
         j++;
     }
 
     e = j + 127;
 
+    unsigned int frac = varAux ^ (1<<j);
+    if (j <= 23){
+        f = frac << (23 - j);
+    } else{
+        f = frac >> (j - 23);
+    }
 
+    u.i = makefloat(s, e, f);
+    return u.f;
 }
 
 int main() {
