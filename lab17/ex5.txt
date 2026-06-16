@@ -1,0 +1,11 @@
+5) i = U
+buff = B
+k = b
+f = U
+g = T
+malloc = U
+strcat = U
+strcpy = U
+strlen = U
+
+5.2) o resulta do printf será 0
